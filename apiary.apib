@@ -8,14 +8,37 @@ allow access to all the resources in the Album Parrot eco-system.
 
 ## Albums [/designer/albums]
 
-### List all albums
+### List all albums [GET]
 
 + Response 200 (application/json)
         
         [
             {
-            
+                title: 'My Album'
             }
         ]
 
-### Create a new album
+### Create a new album [POST]
+
++ Response 200 (application/json)
+
+## Templates [/designer/templates{?width,height,areas}]
+
+Templates are used to layout photos on spreads. 
+This provides predefined template layouts based on the width 
+and height of the album design and the number of photos on the spread.
+
+### Fetch applicable templates [GET]
+
++ Parameters
+    + width: `7088` (number, required) - width of the album canvas.
+    + height: `3544` (number, required) - height of the album canvas.
+    + areas: `3` (number, optional) - number of areas in the template.
+        + Default: `1`
+    
++ Response 200 (application/json)
+
+        [
+            {
+            }
+        ]
