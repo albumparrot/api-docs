@@ -1,44 +1,98 @@
 FORMAT: 1A
-HOST: https://api.albumparrot.com/
 
 # Album Parrot API
 
-The Album Parrot API is a freely available resource designed to 
-allow access to all the resources in the Album Parrot eco-system.
+# Security [/authenticate]
+Authenticating Users
 
-## Albums [/designer/albums]
+Authentication is managed through JSON Web Tokens (JWT). Once you have a token, you should pass it in the Authentication HTTP header on all subsequent requests.
+Tokens are single use, and you will get a new token returned to you as an Authentication header in the response.
+You should use the new token on the next request, and so on.
 
-### List all albums [GET]
+## Fetch a security token [POST]
+Authenticates the credentials passed, and returns a token for future requests if successful.
+
++ Request (application/json)
+    + Body
+
+            [
+                {
+                    "email": "me@design-studio.com",
+                    "password": "P$a$$w0rd"
+                }
+            ]
 
 + Response 200 (application/json)
-        
-        [
+    + Body
+
             {
-                title: 'My Album'
+                "token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOjEsImlzcyI6Imh0dHA6XC9cL2FwaS5kZXYuYWxidW1wYXJyb3QuY29tXC9hdXRoZW50aWNhdGUiLCJpYXQiOjE0NjExNzk5NjIsImV4cCI6MTQ2MTE4MzU2MiwibmJmIjoxNDYxMTc5OTYyLCJqdGkiOiJjNjhiMWRmOTM1ZjVmMmI5NjdhOGJjYjYwMDBjOGFhNSJ9.7de57BSaYwPJ9cFu4j1NsP6AXwNya_Ose2scho_tMEc"
             }
-        ]
 
-### Create a new album [POST]
+# Albums [/albums]
+Album resource representation.
+
+# Email Settings [/email/settings]
+
+# Email Templates [/email/templates]
+
+# Email Logs [/email/log]
+
+# Albums [/designer/albums]
+Album design resource representation.
+
+## Get all albums [GET]
+Get all the album designss associated with the current user.
 
 + Response 200 (application/json)
+    + Body
 
-## Templates [/designer/templates{?width,height,areas}]
+            {
+                "data": [
+                    {
+                        "id": "050b29e7-414f-4018-94c7-74c814c9c220",
+                        "title": "voluptates porro sapiente"
+                    },
+                    {
+                        "id": "07ce8d6d-d0b4-4aea-bff6-dc7bf559894c",
+                        "title": "ea consequatur omnis"
+                    }
+                ]
+            }
 
-Templates are used to layout photos on spreads. 
-This provides predefined template layouts based on the width 
-and height of the album design and the number of photos on the spread.
-
-### Fetch applicable templates [GET]
+## Get a single album design [GET /designer/albums/{album}]
+Get the specific album design
 
 + Parameters
-    + width: `7088` (number, required) - width of the album canvas.
-    + height: `3544` (number, required) - height of the album canvas.
-    + areas: `3` (number, optional) - number of areas in the template.
-        + Default: `1`
-    
-+ Response 200 (application/json)
+    + album: `050b29e7-414f-4018-94c7-74c814c9c220` (string, required) - The id of the album to fetch
 
-        [
++ Response 200 (application/json)
+    + Body
+
             {
+                "data": {
+                    "id": "050b29e7-414f-4018-94c7-74c814c9c220",
+                    "title": "voluptates porro sapiente"
+                }
             }
-        ]
+
+## Create an album design [POST]
+Create a new album design
+
++ Response 200 (application/json)
+    + Body
+
+            []
+
+## Update an existing album design [PUT /designer/albums/{album}]
+pdate an existing album design
+
++ Parameters
+    + album: `050b29e7-414f-4018-94c7-74c814c9c220` (string, required) - The id of the album to update
+
++ Response 200 (application/json)
+    + Body
+
+            []
+
+# Spreads [/designer/albums/{album}]
