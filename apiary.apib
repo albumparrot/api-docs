@@ -2,8 +2,7 @@ FORMAT: 1A
 
 # Album Parrot API
 
-# Group Introduction
-
+# Group Security
 # Security [/authenticate]
 Authenticating Users
 
@@ -32,10 +31,11 @@ Authenticates the credentials passed, and returns a token for future requests if
             }
 
 # Group Proofing
+
 # Albums [/albums]
 Album resource representation.
 
-# Group Email
+# Group Emails
 # Email Settings [/email/settings]
 
 # Email Templates [/email/templates]
@@ -43,11 +43,12 @@ Album resource representation.
 # Email Logs [/email/log]
 
 # Group Designer
+
 # Albums [/designer/albums]
 Album design resource representation.
 
 ## Get all albums [GET]
-Get all the album designss associated with the current user.
+Get all the album designs associated with the current user.
 
 + Response 200 (application/json)
     + Body
@@ -90,7 +91,7 @@ Create a new album design
             []
 
 ## Update an existing album design [PUT /designer/albums/{album}]
-pdate an existing album design
+Update an existing album design
 
 + Parameters
     + album: `050b29e7-414f-4018-94c7-74c814c9c220` (string, required) - The id of the album to update
@@ -100,4 +101,32 @@ pdate an existing album design
 
             []
 
+## Delete an album [DELETE /designer/albums/{album}]
+Deleting the specified album will delete all related spreads.
+
++ Parameters
+    + album: `050b29e7-414f-4018-94c7-74c814c9c220` (string, required) - The id of the album to delete
+
++ Response 200 (application/json)
+    + Body
+
+            []
+
 # Spreads [/designer/albums/{album}]
+
+# Templates [/designer/templates]
+Album design templates representation.
+
+## Templates [GET /designer/templates{?width,height,areas}]
+Get all the template applicable to the specified width and height of the canvas.
+
++ Parameters
+    + width: `7088` (string, required) - The width of the album spread
+    + height: `3544` (string, required) - The height of the album spread
+    + areas: `3` (number, optional) - The width of the album spread
+        + Default: 1
+
++ Response 200 (application/json)
+    + Body
+
+            []
