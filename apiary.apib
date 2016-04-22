@@ -3,6 +3,7 @@ FORMAT: 1A
 # Album Parrot API
 
 # Group Introduction
+
 # Security [/authenticate]
 Authenticating Users
 
@@ -31,7 +32,6 @@ Authenticates the credentials passed, and returns a token for future requests if
             }
 
 # Group Proofing
-
 # Albums [/albums]
 Album resource representation.
 
@@ -43,7 +43,6 @@ Album resource representation.
 # Email Logs [/email/log]
 
 # Group Designer
-
 # Albums [/designer/albums]
 Album design resource representation.
 
@@ -117,16 +116,35 @@ Deleting the specified album will delete all related spreads.
 # Templates [/designer/templates]
 Album design templates representation.
 
-## Fetch templates [GET /designer/templates{?width,height,areas}]
-Get all the template applicable to the specified width and height of the canvas.
+## Fetch Templates [GET /designer/templates{?type,photosPerSpread}]
+Get all the template applicable to the specified type of album design, and number of photos per spread.
+
+This will return a series of templates containing references to the position and size of each photo area.
+These should be interpreted as ratios to be applied against both the real size of the album canvas and the size of the album design
+visually on the screen.
 
 + Parameters
-    + width: `7088` (number, required) - The width of the album spread
-    + height: `3544` (number, required) - The height of the album spread
-    + areas: `3` (number, optional) - The width of the album spread
+    + type: `square` (string, optional) - The type of album design. Available options are square, vertical and horizontal
+        + Default: square
+    + photosPerSpread: `1` (number, optional) - The number of areas in the spread
         + Default: 1
 
 + Response 200 (application/json)
     + Body
 
-            []
+            {
+                "data": [
+                    {
+                        "id": "9d06b091-c72d-4ce2-b257-2ab1fce6a8ca",
+                        "areas": [
+                            {
+                                "order": 0,
+                                "top": 0,
+                                "left": 0,
+                                "width": 1,
+                                "height": 1
+                            }
+                        ]
+                    }
+                ]
+            }
