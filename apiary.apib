@@ -32,10 +32,12 @@ Authenticates the credentials passed, and returns a token for future requests if
             }
 
 # Group Proofing
+
 # Albums [/albums]
 Album resource representation.
 
-# Group Emails
+# Group Email
+
 # Email Settings [/email/settings]
 
 # Email Templates [/email/templates]
@@ -43,6 +45,7 @@ Album resource representation.
 # Email Logs [/email/log]
 
 # Group Designer
+
 # Albums [/designer/albums]
 Album design resource representation.
 
@@ -126,7 +129,7 @@ visually on the screen.
 + Parameters
     + type: `square` (string, optional) - The type of album design. Available options are square, vertical and horizontal
         + Default: square
-    + photosPerSpread: `1` (number, optional) - The number of areas in the spread
+    + photosPerSpread: `3` (number, optional) - The number of areas in the spread
         + Default: 1
 
 + Response 200 (application/json)
@@ -135,13 +138,26 @@ visually on the screen.
             {
                 "data": [
                     {
-                        "id": "9d06b091-c72d-4ce2-b257-2ab1fce6a8ca",
                         "areas": [
                             {
-                                "order": 0,
                                 "top": 0,
                                 "left": 0,
-                                "width": 1,
+                                "order": 0,
+                                "width": 0.333333333333,
+                                "height": 1
+                            },
+                            {
+                                "top": 0,
+                                "left": 0.333333333333,
+                                "order": 1,
+                                "width": 0.333333333333,
+                                "height": 1
+                            },
+                            {
+                                "top": 0,
+                                "left": 0.666666666667,
+                                "order": 2,
+                                "width": 0.333333333333,
                                 "height": 1
                             }
                         ]
