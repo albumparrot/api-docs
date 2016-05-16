@@ -95,16 +95,37 @@ Create a new album design
                 }
             }
 
-+ Response 200 (application/json)
++ Response 201 (application/json)
     + Body
 
-            []
+            {
+                "data": {
+                    "id": "99557b15-1cf4-45a3-ba1e-d34f9a7da9e2",
+                    "title": "Tuscany Wedding",
+                    "dimensions": {
+                        "width": 7088,
+                        "height": 3544,
+                        "dpi": 300
+                    },
+                    "crop": {
+                        "width": 7088,
+                        "height": 3544
+                    }
+                }
+            }
 
 ## Update an existing album design [PUT /designer/albums/{album}]
 Update an existing album design
 
 + Parameters
     + album: `050b29e7-414f-4018-94c7-74c814c9c220` (string, required) - The id of the album to update
+
++ Request (application/json)
+    + Body
+
+            {
+                "title": "Tuscany Wedding"
+            }
 
 + Response 200 (application/json)
     + Body
