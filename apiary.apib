@@ -200,18 +200,12 @@ Fetches the specified spread from the album.
                 }
             }
 
-## Creates a new spread [POST]
+## Creates a new spread [POST /designer/albums/{album}/spreads{?order}]
 Creates a new blank spread in the specified album. Order is optional, and by default will add a new spread at the end of the album
 
 + Parameters
     + album: `album_3c543c5040ad4809ad39d1373f890cc8` (string, required) - The id of the album to add the spread to
-
-+ Request (application/json)
-    + Body
-
-            {
-                "order": 4
-            }
+    + order: `5` (string, optional) - Dicates the ordering of the spread within the album
 
 + Response 201 (application/json)
     + Body
@@ -226,19 +220,13 @@ Creates a new blank spread in the specified album. Order is optional, and by def
                 }
             }
 
-## Updates an existing spread [PUT /designer/albums/{album}/spreads/{spread}]
+## Updates an existing spread [PUT /designer/albums/{album}/spreads/{spread}{?order}]
 Updates the ordering of the existing page
 
 + Parameters
     + album: `album_3c543c5040ad4809ad39d1373f890cc8` (string, required) - The id of the album containing the spread
     + spread: `spread_04185c6f6618433eb9f045576bb8171b` (string, required) - The id of the spread to update
-
-+ Request (application/json)
-    + Body
-
-            {
-                "order": 5
-            }
+    + order: `5` (string, optional) - Dicates the ordering of the spread within the album
 
 + Response 200 (application/json)
     + Body
