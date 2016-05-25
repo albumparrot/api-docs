@@ -41,8 +41,11 @@ Album resource representation.
 # Albums [/designer/albums]
 Album design resource representation.
 
-## Get all albums [GET]
+## Get all albums [GET /designer/albums{?includes}]
 Get all the album designs associated with the current user.
+
++ Parameters
+    + includes: `spreads` (string, optional) - The available includes are spreads. Use spreads.photos and spreads.textBlocks to include sub resources
 
 + Response 200 (application/json)
     + Body
@@ -60,11 +63,12 @@ Get all the album designs associated with the current user.
                 ]
             }
 
-## Get a single album design [GET /designer/albums/{album}]
+## Get a single album design [GET /designer/albums/{album}{?includes}]
 Get the specific album design
 
 + Parameters
     + album: `050b29e7-414f-4018-94c7-74c814c9c220` (string, required) - The id of the album to fetch
+    + includes: `spreads` (string, optional) - The available includes are spreads. Use spreads.photos and spreads.textBlocks to include sub resources
 
 + Response 200 (application/json)
     + Body
@@ -143,49 +147,14 @@ Deleting the specified album will delete all related spreads.
 
             []
 
-# Spreads [/designer/albums/{album}/spreads]
+# Spreads [/designer/spreads]
 
-## List all spreads [GET]
-Get all the spreads associated with the specified album design.
-
-+ Parameters
-    + album: `album_3c543c5040ad4809ad39d1373f890cc8` (string, required) - The id of the album containing the spread
-
-+ Response 200 (application/json)
-    + Body
-
-            {
-                "data": [
-                    {
-                        "id": "spread_4f0a1f6477cb4d6cac716469238b408b",
-                        "order": 0,
-                        "areas": {
-                            "data": []
-                        }
-                    },
-                    {
-                        "id": "spread_9377700fdab04a10a021fff0a29ebe59",
-                        "order": 1,
-                        "areas": {
-                            "data": []
-                        }
-                    },
-                    {
-                        "id": "spread_71d12701c8ec4eb29f3a8578b03f8822",
-                        "order": 2,
-                        "areas": {
-                            "data": []
-                        }
-                    }
-                ]
-            }
-
-## Get a single spread [GET /designer/albums/{album}/spreads/{spread}]
+## Get a single spread [GET /designer/spreads/{spread}{?includes}]
 Fetches the specified spread from the album.
 
 + Parameters
-    + album: `album_3c543c5040ad4809ad39d1373f890cc8` (string, required) - The id of the album containing the spread
     + spread: `spread_9377700fdab04a10a021fff0a29ebe59` (string, required) - The id of the spread to fetch
+    + includes: `photos` (string, optional) - The available includes are textBlocks and photos
 
 + Response 200 (application/json)
     + Body
@@ -211,7 +180,8 @@ Creates a new blank spread in the specified album. Order is optional, and by def
     + Body
 
             {
-                "order": 4
+                "order": 4,
+                "album": "album_3c543c5040ad4809ad39d1373f890cc8"
             }
 
 + Response 201 (application/json)
@@ -227,32 +197,121 @@ Creates a new blank spread in the specified album. Order is optional, and by def
                 }
             }
 
-## Updates an existing spread [PUT /designer/albums/{album}/spreads/{spread}{?order}]
+## Updates an existing spread [PUT /designer/spreads/{spread}]
 Updates the ordering of the existing page
 
 + Parameters
-    + album: `album_3c543c5040ad4809ad39d1373f890cc8` (string, required) - The id of the album containing the spread
-    + spread: `spread_04185c6f6618433eb9f045576bb8171b` (string, required) - The id of the spread to update
-    + order: `5` (string, optional) - The id of the spread to update
+    + spread: `spread_2f1dda37288d46399f411214d3465bce` (string, required) - The id of the spread to update
+
++ Request (application/json)
+    + Body
+
+            {
+                "order": 2,
+                "photos": [
+                    {
+                        "position": {
+                            "x": 0,
+                            "y": 100
+                        },
+                        "size": {
+                            "width": 100,
+                            "height": 100
+                        },
+                        "offset": {
+                            "x": 0,
+                            "y": 0
+                        },
+                        "order": 0,
+                        "path": "/path/to/photo"
+                    }
+                ],
+                "textBlocks": [
+                    {
+                        "position": {
+                            "x": 0,
+                            "y": 100
+                        },
+                        "size": {
+                            "width": 100,
+                            "height": 100
+                        },
+                        "offset": {
+                            "x": 0,
+                            "y": 0
+                        },
+                        "order": 0,
+                        "text": "fab album btw"
+                    }
+                ]
+            }
 
 + Response 200 (application/json)
     + Body
 
             {
                 "data": {
-                    "id": "spread_04185c6f6618433eb9f045576bb8171b",
-                    "order": 5,
-                    "areas": {
-                        "data": []
+                    "id": "spread_2f1dda37288d46399f411214d3465bce",
+                    "order": 2,
+                    "photos": {
+                        "data": [
+                            {
+                                "id": "photo_acaa2fa4884e46b0a8dfe3df04c831ee",
+                                "path": "\/path\/to\/photo",
+                                "area": {
+                                    "data": {
+                                        "id": "area_ec315a6d8e1a4670bacf16d549e29e57",
+                                        "position": {
+                                            "x": 0,
+                                            "y": 100
+                                        },
+                                        "size": {
+                                            "width": 100,
+                                            "height": 100
+                                        },
+                                        "offset": {
+                                            "x": 0,
+                                            "y": 0
+                                        },
+                                        "order": 0
+                                    }
+                                }
+                            }
+                        ]
+                    },
+                    "textBlocks": {
+                        "data": [
+                            {
+                                "id": "text_4c111c75eea443fd8f54783f2b608ef4",
+                                "text": "fab album btw",
+                                "area": {
+                                    "data": {
+                                        "id": "area_b15fd579f7454ecb8560a26a0ec7a882",
+                                        "position": {
+                                            "x": 0,
+                                            "y": 100
+                                        },
+                                        "size": {
+                                            "width": 100,
+                                            "height": 100
+                                        },
+                                        "offset": {
+                                            "x": 0,
+                                            "y": 0
+                                        },
+                                        "order": 0
+                                    }
+                                }
+                            }
+                        ]
                     }
                 }
             }
 
-## Delete an spread [DELETE /designer/albums/{album}/spreads/{spread}]
+## Delete an spread [DELETE /designer/spreads/{spread}]
 Deleting the specified spread will delete all related areas.
 
 + Parameters
-    + album: `050b29e7-414f-4018-94c7-74c814c9c220` (string, required) - The id of the album to delete
     + spread: `spread_04185c6f6618433eb9f045576bb8171b` (string, required) - The id of the spread to fetch
 
 + Response 200 (application/json)
@@ -273,8 +332,7 @@ visually on the screen.
 + Parameters
     + type: `square` (string, optional) - The type of album design. Available options are square, vertical and horizontal
         + Default: square
-    + photosPerSpread: `3` (number, optional) - The number of areas in the spread
-        + Default: 1
+    + photosPerSpread: `3` (number, optional) - The number of areas in the spread. By default it will retrieve all templates
 
 + Response 200 (application/json)
     + Body
