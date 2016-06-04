@@ -46,7 +46,7 @@ Album design resource representation.
 Get all the album designs associated with the current user.
 
 + Parameters
-    + includes: `spreads` (string, optional) - The available includes are spreads. Use spreads.photos and spreads.textBlocks to include sub resources
+    + includes: `spreads` (string, optional) - The available includes are spreads and library. Use spreads.photos and spreads.textBlocks to include sub resources
 
 + Response 200 (application/json)
     + Body
@@ -69,7 +69,7 @@ Get the specific album design
 
 + Parameters
     + album: `050b29e7-414f-4018-94c7-74c814c9c220` (string, required) - The id of the album to fetch
-    + includes: `spreads` (string, optional) - The available includes are spreads. Use spreads.photos and spreads.textBlocks to include sub resources
+    + includes: `spreads` (string, optional) - The available includes are spreads and library. Use spreads.photos and spreads.textBlocks to include sub resources
 
 + Response 200 (application/json)
     + Body
@@ -367,3 +367,42 @@ visually on the screen.
                     }
                 ]
             }
+
+# Photo Library [/designer/library]
+
+## Browse library [GET /designer/library{?provider,path}]
+Get all the album designs associated with the current user.
+
++ Parameters
+    + provider: `shootproof` (string, optional) - Shootproof is the only option just now. Allows you to select which provider to browse
+        + Default: shootproof
+    + path: `event:597428` (string, optional) - The path to retrieve photos for. Use the path field in the response to find the next possible paths
+        + Default: 
+
++ Response 200 (application/json)
+    + Body
+
+            {
+                "data": [
+                    {
+                        "path": "event:597428/album:1084969",
+                        "name": "By the Chapel"
+                    },
+                    {
+                        "path": "event:597428/album:1088720",
+                        "name": "By the Lake"
+                    },
+                    {
+                        "path": "event:597428/album:383825",
+                        "name": "Arriving"
+                    },
+                    {
+                        "path": "event:597428/album:383877",
+                        "name": "In the Apartment"
+                    }
+                ]
+            }
+
+# AppApiControllersDesignerUpdateController
+
+# AppHooksEmailLogHook
