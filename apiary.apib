@@ -1,5 +1,4 @@
 FORMAT: 1A
-HOST: https://api.albumparrot.com
 
 # Album Parrot API
 
@@ -29,15 +28,6 @@ Authenticates the credentials passed, and returns a token for future requests if
             {
                 "token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOjEsImlzcyI6Imh0dHA6XC9cL2FwaS5kZXYuYWxidW1wYXJyb3QuY29tXC9hdXRoZW50aWNhdGUiLCJpYXQiOjE0NjExNzk5NjIsImV4cCI6MTQ2MTE4MzU2MiwibmJmIjoxNDYxMTc5OTYyLCJqdGkiOiJjNjhiMWRmOTM1ZjVmMmI5NjdhOGJjYjYwMDBjOGFhNSJ9.7de57BSaYwPJ9cFu4j1NsP6AXwNya_Ose2scho_tMEc"
             }
-
-# Albums [/albums]
-Album resource representation.
-
-# Email Settings [/email/settings]
-
-# Email Templates [/email/templates]
-
-# Email Logs [/email/log]
 
 # Albums [/designer/albums]
 Album design resource representation.
@@ -163,6 +153,7 @@ Fetches the specified spread from the album.
             {
                 "data": {
                     "id": "spread_71d12701c8ec4eb29f3a8578b03f8822",
+                    "template": "template_0532ec5f70a44f57ac313655834629a6",
                     "order": 3,
                     "areas": {
                         "data": []
@@ -175,6 +166,7 @@ Creates a new blank spread in the specified album. Order is optional, and by def
 
 + Parameters
     + album: `album_3c543c5040ad4809ad39d1373f890cc8` (string, required) - The id of the album to add the spread to
+    + template: `template_0532ec5f70a44f57ac313655834629a6` (string, required) - The template that is applied to this templates
     + order: `4` (string, optional) - The id of the spread to update
 
 + Request (application/json)
@@ -192,6 +184,7 @@ Creates a new blank spread in the specified album. Order is optional, and by def
                 "data": {
                     "id": "spread_04185c6f6618433eb9f045576bb8171b",
                     "order": 4,
+                    "template": "template_0532ec5f70a44f57ac313655834629a6",
                     "areas": {
                         "data": []
                     }
@@ -209,6 +202,7 @@ Updates the ordering of the existing page
 
             {
                 "order": 2,
+                "template": "template_0532ec5f70a44f57ac313655834629a6",
                 "photos": [
                     {
                         "position": {
@@ -406,7 +400,3 @@ Get all the album designs associated with the current user.
                     }
                 ]
             }
-
-# AppApiControllersDesignerUpdateController
-
-# AppHooksEmailLogHook
