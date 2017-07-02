@@ -3,9 +3,7 @@ FORMAT: 1A
 # Album Parrot API
 
 # Security [/authenticate]
-Authenticating Users
-
-Authentication is managed through JSON Web Tokens (JWT). Once you have a token, you should pass it in the Authentication HTTP header on all subsequent requests.
+Authenticating UsersAuthentication is managed through JSON Web Tokens (JWT). Once you have a token, you should pass it in the Authentication HTTP header on all subsequent requests.
 Tokens are single use, and you will get a new token returned to you as an Authentication header in the response.
 You should use the new token on the next request, and so on.
 
@@ -27,6 +25,67 @@ Authenticates the credentials passed, and returns a token for future requests if
 
             {
                 "token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOjEsImlzcyI6Imh0dHA6XC9cL2FwaS5kZXYuYWxidW1wYXJyb3QuY29tXC9hdXRoZW50aWNhdGUiLCJpYXQiOjE0NjExNzk5NjIsImV4cCI6MTQ2MTE4MzU2MiwibmJmIjoxNDYxMTc5OTYyLCJqdGkiOiJjNjhiMWRmOTM1ZjVmMmI5NjdhOGJjYjYwMDBjOGFhNSJ9.7de57BSaYwPJ9cFu4j1NsP6AXwNya_Ose2scho_tMEc"
+            }
+
+# Profile [/designer/profile]
+Album Parrot user profile representation.
+
+## Get user preferences [GET /designer/profile{?includes}]
+Get the preferences for the current user for the various tools on the platform.
+
++ Parameters
+    + includes: `preferences.designer` (string, optional) - The available includes are preferences.designer
+
++ Response 200 (application/json)
+    + Body
+
+            {
+                "data": {
+                    "id": 1,
+                    "name": "John Mitchell",
+                    "email": "john@albumparrot.com",
+                    "preferences": {
+                        "designer": {
+                            "defaults": {
+                                "background-color": "#fff"
+                            }
+                        }
+                    }
+                }
+            }
+
+## Updates an existing profile [PUT /designer/profile]
+Allows preferences to be saved against a user.
+This is a merge rather than an replacement object. However, when updated a preference type,
+the full definition of the preference type must be specified.
+
++ Request (application/json)
+    + Body
+
+            {
+                "preferences": {
+                    "designer": {
+                        "defaults": {
+                            "background-color": "#fff"
+                        }
+                    }
+                }
+            }
+
++ Response 200 (application/json)
+    + Body
+
+            {
+                "id": 1,
+                "name": "John Mitchell",
+                "email": "john@albumparrot.com",
+                "preferences": {
+                    "designer": {
+                        "defaults": {
+                            "background-color": "#fff"
+                        }
+                    }
+                }
             }
 
 # Albums [/designer/albums]
@@ -213,9 +272,11 @@ Updates the ordering of the existing page
                             "width": 100,
                             "height": 100
                         },
-                        "offset": {
+                        "crop": {
                             "x": 0,
-                            "y": 0
+                            "y": 0,
+                            "width": 50,
+                            "height": 50
                         },
                         "order": 0,
                         "path": "/path/to/photo"
@@ -228,10 +289,10 @@ Updates the ordering of the existing page
                             "y": 100
                         },
                         "size": {
-                            "width": 100,
-                            "height": 100
+                            "width": 50,
+                            "height": 50
                         },
-                        "offset": {
+                        "crop": {
                             "x": 0,
                             "y": 0
                         },
@@ -264,7 +325,7 @@ Updates the ordering of the existing page
                                             "width": 100,
                                             "height": 100
                                         },
-                                        "offset": {
+                                        "crop": {
                                             "x": 0,
                                             "y": 0
                                         },
@@ -290,7 +351,7 @@ Updates the ordering of the existing page
                                             "width": 100,
                                             "height": 100
                                         },
-                                        "offset": {
+                                        "crop": {
                                             "x": 0,
                                             "y": 0
                                         },
